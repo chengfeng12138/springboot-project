@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <title>Document</title>
+    <script>
+        function login() {
+            let name = document.getElementById("name").value;
+            let password = document.getElementById("password").value;
+            let uuid = GetQueryString("uuid");
+
+            alert(name + "----" + password + "---" + uuid);
+            $.get("http://192.168.0.106:8080/bindUserIdAndToken?name=" + name + "&password=" + password + "&uuid=" + uuid,
+                function (res) {
+                    console.log(res);
+                    alert(res.data);
+                });
+        }
+
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
+    </script>
+    <style>
+        div {
+            font-size: 20px;
+            margin-bottom: 20px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<div style="margin-top: 10px;">
+    用户名: <input type="text" id="name">
+</div>
+<div>
+    密码: <input type="text" id="password">
+</div>
+<div>
+    <button onclick="login()">登录</button>
+</div>
+</body>
+
+</html>

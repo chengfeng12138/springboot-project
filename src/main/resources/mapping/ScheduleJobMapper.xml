@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chengfeng.study.myspringbootproject.mapper.scheduletask.ScheduleJobMapper">
+
+    <resultMap id="BaseResultMap" type="com.chengfeng.study.myspringbootproject.pojo.SysJobPO">
+        <result column="jobId" jdbcType="INTEGER" property="jobId" />
+        <result column="beanName" jdbcType="VARCHAR" property="beanName" />
+        <result column="methodName" jdbcType="VARCHAR" property="methodName" />
+        <result column="methodParams" jdbcType="VARCHAR" property="methodParams" />
+        <result column="cronExpression" jdbcType="VARCHAR" property="cronExpression" />
+        <result column="jobStatus" jdbcType="INTEGER" property="jobStatus" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="createTime" jdbcType="DATE" property="createTime" />
+        <result column="updateTime" jdbcType="DATE" property="updateTime" />
+    </resultMap>
+
+    <!--查询-->
+    <select id="findAllScheduleTask" resultType="com.chengfeng.study.myspringbootproject.pojo.SysJobPO">
+        select * from sys_schedule_job
+    </select>
+    <select id="findScheduleTaskListByStatus" resultType="com.chengfeng.study.myspringbootproject.pojo.SysJobPO">
+        select * from sys_schedule_job where jobStatus=#{jobStatus}
+    </select>
+    <select id="findScheduleTaskById" resultType="com.chengfeng.study.myspringbootproject.pojo.SysJobPO">
+        select * from sys_schedule_job where jobId=#{jobId}
+    </select>
+    <!--增加定时任务-->
+    <insert id="addSysScheduleJob" parameterType="com.chengfeng.study.myspringbootproject.pojo.SysJobPO" keyProperty="jobId">
+        insert into sys_schedule_job
+        values (#{jobId}, #{beanName}, #{methodName}, #{methodParams}, #{cronExpression}, #{jobStatus}, #{remark}, #{createTime}, #{updateTime})
+    </insert>
+    <!--更新定时任务-->
+    <update id="editSysScheduleJob">
+        update sys_schedule_job set beanName=#{beanName},methodName=#{methodName},methodParams=#{methodParams}
+                                    ,cronExpression=#{cronExpression},jobStatus=#{jobStatus},
+                                    remark=#{remark},updateTime=#{updateTime} where jobId=#{jobId}
+    </update>
+    <update id="enableOrDisableSysScheduleTask">
+        update sys_schedule_job set jobStatus=#{jobStatus},updateTime=#{updateTime} where jobId=#{jobId}
+    </update>
+    <!--删除定时任务-->
+    <delete id="deleteSysScheduleJobById">
+        DELETE FROM sys_schedule_job where jobId=#{jobId}
+    </delete>
+</mapper>

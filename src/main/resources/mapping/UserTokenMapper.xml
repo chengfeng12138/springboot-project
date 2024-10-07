@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chengfeng.study.myspringbootproject.mapper.user.UserTokenMapper">
+
+    <resultMap id="BaseResultMap" type="com.chengfeng.study.myspringbootproject.pojo.UserToken">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+        <result column="userId" jdbcType="VARCHAR" property="userId" />
+        <result column="loginTime" jdbcType="VARCHAR" property="loginTime" />
+        <result column="createTime" jdbcType="VARCHAR" property="createTime" />
+        <result column="state" jdbcType="INTEGER" property="state" />
+    </resultMap>
+
+    <!--查询token-->
+    <select id="getUserToken" resultType="com.chengfeng.study.myspringbootproject.pojo.UserToken">
+        select * from user_token where uuid = #{uuid}
+    </select>
+    <!--增加用户token-->
+    <insert id="insertUserToken" parameterType="com.chengfeng.study.myspringbootproject.pojo.UserToken" keyProperty="id">
+        insert into user_token values(#{id},#{uuid},#{userId},#{loginTime},#{createTime},#{state})
+    </insert>
+    <update id="updateUserToken" parameterType="com.chengfeng.study.myspringbootproject.pojo.UserToken">
+        UPDATE user_token SET userId=#{userId},loginTime=#{loginTime} WHERE id=#{id};
+    </update>
+</mapper>

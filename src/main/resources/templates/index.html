@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的springboot</title>
+    <style type="text/css">
+        .inputCla {
+            -webkit-border-top-left-radius: 15px;
+            /*右上角圆角*/
+            -webkit-border-bottom-left-radius: 15px;
+            /*右下角圆角*/
+            padding: 6px 0;
+            text-indent: 10px;
+            height: 24px;
+            line-height: 24px;
+            width: 472px;
+            border: 2px solid #FF4200;
+            outline: 0;
+            background: #FFF;
+            font-size: 15px
+        }
+        #search {
+            font-size: 18px;
+            font-weight: 700;
+            color: #FFF;
+            background-color: #FF4200;
+            cursor: pointer;
+            border: none;
+            padding: 5px 14px 11px 14px;
+            text-indent: 10px;
+            -webkit-border-top-right-radius: 15px;
+            /*右上角圆角*/
+            -webkit-border-bottom-right-radius: 15px;
+            /*右下角圆角*/
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: #FF4200; text-align: center; margin-top: 10%">欢迎来到首页</h1>
+    <div style="text-align: center">
+        <label for="searchContent"></label><input class="inputCla" id="searchContent" type="text" placeholder="请输入并搜索"><span id="search" onclick="searchFunc()">搜索</span>
+    </div>
+    <div>
+        <a href="/level1/1">level1</a>
+        <a href="/level2/2">level2</a>
+        <a href="/level3/3">level3</a>
+    </div>
+    <div>
+        <a href="/user/add">add</a>
+        <a href="/user/update">update</a>
+    </div>
+    <div>
+        <a href="/logout">退出登录</a>
+    </div>
+    <script type="text/javascript">
+        function searchFunc() {
+            let content = document.getElementById("searchContent").value;
+            window.location.href = "http://www.baidu.com/s?wd=" + content;
+        }
+    </script>
+</body>
+</html>

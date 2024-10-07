@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "dog.name",
+      "type": "java.lang.String",
+      "description": "Description for dog.name."
+    },
+    {
+      "name": "spring.datasource.filters",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.filters."
+    }
+  ] }

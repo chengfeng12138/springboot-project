@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chengfeng.study.myspringbootproject.mapper.chat.ChatMessageMapper">
+
+    <resultMap id="BaseResultMap" type="com.chengfeng.study.myspringbootproject.pojo.ChatMessage">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="from" jdbcType="VARCHAR" property="from"/>
+        <result column="to" jdbcType="VARCHAR" property="to"/>
+        <result column="message" jdbcType="VARCHAR" property="message"/>
+        <result column="sendTime" jdbcType="DATE" property="sendTime"/>
+    </resultMap>
+
+    <insert id="saveChatMessage" parameterType="com.chengfeng.study.myspringbootproject.pojo.ChatMessage"
+            keyProperty="id">
+        insert into chat_message
+        values (#{id}, #{from}, #{to}, #{message}, #{sendTime})
+    </insert>
+
+    <select id="findChatMessageByOne" resultType="com.chengfeng.study.myspringbootproject.pojo.ChatMessage">
+        select *
+        from chat_message c
+        where (c.to = #{to} and c.from = #{from})
+           OR (c.to = #{from} and c.from = #{to})
+        ORDER BY sendTime ASC
+    </select>
+
+</mapper>
