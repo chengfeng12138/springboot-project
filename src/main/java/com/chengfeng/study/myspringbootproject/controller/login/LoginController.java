@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.chengfeng.study.myspringbootproject.common.ResponseResult;
 import com.chengfeng.study.myspringbootproject.pojo.User;
 import com.chengfeng.study.myspringbootproject.service.user.UserService;
+import lombok.extern.log4j.Log4j2;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -11,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * LoginController class
@@ -22,8 +21,8 @@ import java.util.logging.Logger;
  */
 @RestController
 @RequestMapping("/action")
+@Log4j2
 public class LoginController {
-    private static final Logger log = Logger.getLogger(LoginController.class.getName());
 
     @Autowired
     private UserService userService;
@@ -39,7 +38,7 @@ public class LoginController {
     private String login(@RequestBody User user, HttpSession session) {
         String name = user.getName();
         String password = user.getPassword();
-        log.log(Level.INFO, "login name :[" + name + "], password : [" + password + "].");
+        log.info("login name :[" + name + "], password : [" + password + "].");
         ResponseResult responseResult = new ResponseResult(true);
         //shiro权限认证
         shiroCheckUser(name, password, responseResult);
@@ -67,27 +66,27 @@ public class LoginController {
             UsernamePasswordToken userToken = new UsernamePasswordToken(name, password);
             subject.login(userToken); //登录
         } catch (UnknownAccountException e) {
-            log.log(Level.WARNING, "用户名验证失败...");
+            log.warn("用户名验证失败...");
             responseResult.setData(null);
             responseResult.setSuccess(false);
             responseResult.setMessage("用户名验证失败!!!");
         } catch (IncorrectCredentialsException e) {
-            log.log(Level.WARNING, "密码验证失败...");
+            log.warn("密码验证失败...");
             responseResult.setData(null);
             responseResult.setSuccess(false);
             responseResult.setMessage("密码验证失败!!!");
         } catch (LockedAccountException e) {
-            log.log(Level.WARNING, "登录失败，该用户已被冻结...");
+            log.warn("登录失败，该用户已被冻结...");
             responseResult.setData(null);
             responseResult.setSuccess(false);
             responseResult.setMessage("登录失败，该用户已被冻结!!!");
         } catch (AuthenticationException e) {
-            log.log(Level.WARNING, "该用户不存在...");
+            log.warn("该用户不存在...");
             responseResult.setData(null);
             responseResult.setSuccess(false);
             responseResult.setMessage("该用户不存在!!!");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.warn("登录异常, {}", name, e);
             responseResult.setData(null);
             responseResult.setSuccess(false);
             responseResult.setMessage("登录异常, 请重试!!!");
