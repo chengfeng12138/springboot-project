@@ -1,9 +1,11 @@
 package com.chengfeng.study.myspringbootproject.controller.user;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.chengfeng.study.myspringbootproject.common.ResponseResult;
 import com.chengfeng.study.myspringbootproject.pojo.User;
 import com.chengfeng.study.myspringbootproject.service.user.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/action")
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -43,7 +46,7 @@ public class UserController {
             responseResult.setSuccess(true);
             responseResult.setData(allUser);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("用户信息查询失败!", e);
             responseResult.setSuccess(false);
             responseResult.setMessage("用户信息查询失败!");
         }
@@ -74,5 +77,14 @@ public class UserController {
         int userId = userService.deleteUser(user.getId());
         responseResult.setData(userId);
         return JSON.toJSONString(responseResult);
+    }
+
+    public static void main(String[] args) {
+        double a = 1.0;
+        String str = a + "";
+        int b = Integer.parseInt(str.split("\\.")[0]);
+        System.out.println(b);
+        int i = Integer.parseInt("1");
+
     }
 }

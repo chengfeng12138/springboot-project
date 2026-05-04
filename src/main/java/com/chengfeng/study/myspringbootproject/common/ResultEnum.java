@@ -17,6 +17,8 @@ public enum ResultEnum {
     USER_IS_EXISTS(2,"用户已存在"),
     //
     DATA_IS_NULL(3,"数据为空"),
+    //
+    CONTENT_ILLEGAL(405,"消息内容违规"),
     ;
     private Integer code;
     private String message;
